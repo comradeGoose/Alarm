@@ -2,26 +2,55 @@
 
 #app {
   max-width: 1280px;
+  /* max-width: 1920px; */
   margin: 0 auto;
   padding: 2rem;
+  padding-top: 5rem;
 
   font-weight: normal;
+}
+
+body {
+  display: flex;
+  place-items: center;
 }
 
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: rgb(176, 0, 32);
   transition: 0.4s;
 }
 
-@media (hover: hover) {
+/* nav a.router-link-exact-active {
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 1rem;
+  background-color: rgb(176, 0, 32);
+} */
+
+
+/* @media (hover: hover) {
   a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+    background-color: rgba(176, 0, 32, 0.1);
+    border-radius: 1rem;
   }
+} */
+
+.bg-timely {
+  background-color: rgb(176, 0, 32);
 }
 
-@media (min-width: 1024px) {
+.text-timely {
+  color: rgb(176, 0, 32);
+}
+
+/* .card {
+  background-color: rgb(35, 34, 34);
+  color: rgb(176, 0, 32);;
+} */
+
+/* @media (min-width: 1024px) {
   body {
     display: flex;
     place-items: center;
@@ -32,4 +61,4 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
-}
+} */

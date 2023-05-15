@@ -10,6 +10,7 @@ export default {
   },
   data () {
     return {
+      id: this.call.id,
       musicList: ['1', '2', '3', '4', 'Radiohead - Creep'],
       music: this.call.music,
       startLesson: this.call.startLesson,
@@ -19,10 +20,10 @@ export default {
     }
   },
   mounted () {
-    axios.get('/music_list')
+    axios.get('/music-list')
       .then((response) => {
         console.log(response.data)
-        this.music_list = response.data
+        this.musicList = response.data
       })
       .catch(function (error) {
         console.log(error)
@@ -30,40 +31,36 @@ export default {
   },
   methods: {
     get_music_list: function () {
-      axios.get('/music_list')
+      axios.get('/music-list')
         .then((response) => {
-          console.log(response)
           console.log(response.data)
-          this.music_list = response.data
+          this.musicList = response.data
         })
         .catch(function (error) {
           console.log(error)
         })
     },
-    log_checkedNames () {
-      console.log(this.checkedNames)
-    }
   }
 }
 </script>
 
 <template>
-  <div class="col">
-    <div class="card h-100 w-100 shadow border-danger" style="width: auto;">  <!-- bg-card text-color -->
+  <div class="col call">
+    <div class="card h-100 w-100 shadow border-danger">  <!-- bg-card text-color -->
       <!-- <img src="..." class="card-img-top" alt="..."> -->
       <div class="card-body">
         <!-- <h5 class="card-title">Card title</h5>
         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
 					This content is a little bit longer.</p> -->
-        <label for="time-input">Audio notification ringtone:</label>
-        <select class="form-select valid text-white" v-model="music" required aria-label="Open this ringtone selection menu">
+        <label for="time-input">Мелодия аудио уведомления:</label>
+        <select class="form-select valid text-white" v-model="music" @click="get_music_list()" @change="$emit('update_music_name', call.id, music)" required aria-label="Open this ringtone selection menu">
             <option v-for="music of musicList" :key="music">{{ music }}</option>
           </select>
         <br />
         <div class="form-group">
-          <label for="time-input">Audio notification time:</label>
+          <label for="time-input">Время подачи аудио уведомления:</label>
           <div class="input-group">
-            <input type="time" required id="start-time-input" class="form-control valid text-white" v-model="startLesson" > 
+            <input type="time" required id="start-time-input" class="form-control valid text-white" v-model="startLesson" @input="$emit('update_time_start', call.id, startLesson)"> 
             <div class="d-flex align-items-center">
               <svg viewBox="0 0 24 24" style="height: 30px; width: 30px;">
                 <path fill="currentColor"
@@ -71,65 +68,65 @@ export default {
                 </path>
               </svg>
             </div>
-            <input type="time" required id="end-time-input" class="form-control valid text-white" v-model="endLesson">
+            <input type="time" required id="end-time-input" class="form-control valid text-white" v-model="endLesson" @input="$emit('update_time_end', call.id, endLesson)">
           </div>
         </div>
 
         <br />
-
+        <label for="time-input">Дни недели подачи аудио уведомления:</label>
         <div class="d-flex justify-content-between">
           <label>
             <div>
               <div class="checkbox-wrapper-13">
-                <input type="checkbox" id="Monday" value="1" v-model="daysOfTheWeek">
+                <input type="checkbox" id="Monday" value="1" v-model="daysOfTheWeek" @change="$emit('update_week_days', call.id, daysOfTheWeek)">
               </div>
             </div>
-            Mo
+            Пн
           </label>
 
           <label>
             <div>
               <div class="checkbox-wrapper-13">
-                <input type="checkbox" id="Tuesday" value="2" v-model="daysOfTheWeek">
+                <input type="checkbox" id="Tuesday" value="2" v-model="daysOfTheWeek" @change="$emit('update_week_days', call.id, daysOfTheWeek)">
               </div>
             </div>
-            Tu
+            Вт
           </label>
 
           <label>
             <div>
               <div class="checkbox-wrapper-13">
-                <input type="checkbox" id="Wednesday" value="3" v-model="daysOfTheWeek">
+                <input type="checkbox" id="Wednesday" value="3" v-model="daysOfTheWeek" @change="$emit('update_week_days', call.id, daysOfTheWeek)">
               </div>
             </div>
-            We
+            Ср
           </label>
 
           <label>
             <div>
               <div class="checkbox-wrapper-13">
-                <input type="checkbox" id="Thursday" value="4" v-model="daysOfTheWeek">
+                <input type="checkbox" id="Thursday" value="4" v-model="daysOfTheWeek" @change="$emit('update_week_days', call.id, daysOfTheWeek)">
               </div>
             </div>
-            Th
+            Чт
           </label>
 
           <label>
             <div>
               <div class="checkbox-wrapper-13">
-                <input type="checkbox" id="Friday" value="5" v-model="daysOfTheWeek">
+                <input type="checkbox" id="Friday" value="5" v-model="daysOfTheWeek" @change="$emit('update_week_days', call.id, daysOfTheWeek)">
               </div>
             </div>
-            Fr
+            Пт
           </label>
 
           <label>
             <div>
               <div class="checkbox-wrapper-13">
-                <input type="checkbox" id="Saturday" value="6" v-model="daysOfTheWeek">
+                <input type="checkbox" id="Saturday" value="6" v-model="daysOfTheWeek" @change="$emit('update_week_days', call.id, daysOfTheWeek)">
               </div>
             </div>
-            Sa
+            Сб
           </label>
         </div>
 
@@ -137,12 +134,7 @@ export default {
       
       <div class="card-footer border-danger">
         <div class="d-flex justify-content-between align-items-center text-timely">
-          <button type="button" class="btn text-timely">
-            <!-- <svg viewBox="0 0 24 24" style="height: 30px; width: 30px;">
-              <path fill="currentColor"
-                d="M20.12 14.46L18 16.59L15.88 14.46L14.46 15.88L16.59 18L14.46 20.12L15.88 21.54L18 19.41L20.12 21.54L21.54 20.12L19.41 18L21.54 15.88M12 2C10.9 2 10 2.9 10 4C10 4.1 10 4.19 10 4.29C7.12 5.14 5 7.82 5 11V17L3 19V20H12.35C12.12 19.36 12 18.68 12 18H7V11A5 5 0 0 1 12 6A5 5 0 0 1 17 11V12.09C17.33 12.04 17.66 12 18 12C18.34 12 18.67 12.03 19 12.09V11C19 7.82 16.88 5.14 14 4.29C14 4.19 14 4.1 14 4C14 2.9 13.11 2 12 2M10 21C10 22.11 10.9 23 12 23C12.66 23 13.28 22.67 13.65 22.13C13.33 21.79 13.05 21.41 12.81 21Z">
-              </path>
-            </svg> -->
+          <button type="button" class="btn text-timely" @click="$emit('deleteCall', call.id)">
             <svg viewBox="0 0 24 24" style="height: 30px; width: 30px;">
               <path fill="currentColor" d="M20.12 14.46L18 16.59L15.88 14.46L14.46 15.88L16.59 18L14.46 20.12L15.88 21.54L18 19.41L20.12 21.54L21.54 20.12L19.41 18L21.54 15.88M12 2C10.9 2 10 2.9 10 4C10 4.1 10 4.19 10 4.29C7.12 5.14 5 7.82 5 11V17L3 19V20H12.35C12.12 19.36 12 18.68 12 18C12 14.69 14.69 12 18 12C18.34 12 18.67 12.03 19 12.09V11C19 7.82 16.88 5.14 14 4.29C14 4.19 14 4.1 14 4C14 2.9 13.11 2 12 2M10 21C10 22.11 10.9 23 12 23C12.66 23 13.28 22.67 13.65 22.13C13.33 21.79 13.05 21.41 12.81 21Z"></path>
             </svg>
@@ -151,7 +143,7 @@ export default {
           <!-- <small class="text-body-secondary">Last updated 3 mins ago</small> -->
 
           <label class="switch">
-            <input v-model="play" type="checkbox">
+            <input v-model="play" type="checkbox" @change="$emit('SetPlay', call.id)">
             <div class="slider"></div>
             <div class="slider-card">
               <div class="slider-card-face slider-card-front"></div>
@@ -165,6 +157,10 @@ export default {
 </template>
 
 <style scoped>
+
+.call {
+  max-width: 450px;
+}
 
 input:invalid {
     background-color: rgba(176, 0, 32, 0.3);

@@ -7,15 +7,11 @@ export default {
   components: {
     HelloWorld
   },
-  data () {
+  data() {
     return {
-      toggleValue: false
     }
   },
   methods: {
-    setToggle: function (value) {
-      this.toggleValue = !value
-    }
   }
 }
 </script>
@@ -57,5 +53,4 @@ header {
     place-items: flex-start;
     flex-wrap: wrap;
   }
-}
-</style>
+}</style>

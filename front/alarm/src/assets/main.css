@@ -1,10 +1,12 @@
 @import './base.css';
 
 #app {
+  /* max-height: 100vh; */
   max-width: 1280px;
+  width: 1280px;
   /* max-width: 1920px; */
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   padding-top: 5rem;
 
   font-weight: normal;
@@ -43,6 +45,16 @@ a,
 
 .text-timely {
   color: rgb(176, 0, 32);
+}
+
+.btn-timely {
+  background-color: rgb(176, 0, 32);
+  color: white;
+}
+
+.btn-timely:hover {
+  background-color: rgb(150, 0, 0);
+  color: white;
 }
 
 /* .card {

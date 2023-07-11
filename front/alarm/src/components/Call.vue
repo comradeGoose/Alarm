@@ -8,10 +8,10 @@ export default {
     },
     index: Number
   },
-  data () {
+  data() {
     return {
       id: this.call.id,
-      musicList: ['1', '2', '3', '4', 'Radiohead - Creep'],
+      musicList: ['4', 'Eminem, Dido - Stan.mp3', 'The Sneepers, David Hasselhoff - Guardians Inferno.mp3'],
       music: this.call.music,
       startLesson: this.call.startLesson,
       endLesson: this.call.endLesson,
@@ -19,7 +19,7 @@ export default {
       play: this.call.play
     }
   },
-  mounted () {
+  mounted() {
     axios.get('/music-list')
       .then((response) => {
         console.log(response.data)
@@ -46,21 +46,33 @@ export default {
 
 <template>
   <div class="col call">
-    <div class="card h-100 w-100 shadow border-danger">  <!-- bg-card text-color -->
+    <div class="card h-100 w-100 shadow border-danger"> <!-- bg-card text-color -->
       <!-- <img src="..." class="card-img-top" alt="..."> -->
       <div class="card-body">
         <!-- <h5 class="card-title">Card title</h5>
         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
 					This content is a little bit longer.</p> -->
+        <svg style="height:20px;width:20px" viewBox="0 0 24 24">
+          <path fill="currentColor"
+            d="M21,3V15.5A3.5,3.5 0 0,1 17.5,19A3.5,3.5 0 0,1 14,15.5A3.5,3.5 0 0,1 17.5,12C18.04,12 18.55,12.12 19,12.34V6.47L9,8.6V17.5A3.5,3.5 0 0,1 5.5,21A3.5,3.5 0 0,1 2,17.5A3.5,3.5 0 0,1 5.5,14C6.04,14 6.55,14.12 7,14.34V6L21,3Z">
+          </path>
+        </svg>
         <label for="time-input">Мелодия аудио уведомления:</label>
-        <select class="form-select valid text-white" v-model="music" @click="get_music_list()" @change="$emit('update_music_name', call.id, music)" required aria-label="Open this ringtone selection menu">
-            <option v-for="music of musicList" :key="music">{{ music }}</option>
-          </select>
+        <select class="form-select valid text-white" v-model="music" @click="get_music_list()"
+          @change="$emit('update_music_name', call.id, music)" required aria-label="Open this ringtone selection menu">
+          <option v-for="music of musicList" :key="music">{{ music }}</option>
+        </select>
         <br />
         <div class="form-group">
+          <svg viewBox="0 0 24 24" style="height: 20px; width: 20px;">
+            <path fill="currentColor"
+              d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22A9,9 0 0,0 21,13A9,9 0 0,0 12,4M12.5,8H11V14L15.75,16.85L16.5,15.62L12.5,13.25V8M7.88,3.39L6.6,1.86L2,5.71L3.29,7.24L7.88,3.39M22,5.72L17.4,1.86L16.11,3.39L20.71,7.25L22,5.72Z">
+            </path>
+          </svg>
           <label for="time-input">Время подачи аудио уведомления:</label>
           <div class="input-group">
-            <input type="time" required id="start-time-input" class="form-control valid text-white" v-model="startLesson" @input="$emit('update_time_start', call.id, startLesson)"> 
+            <input type="time" required id="start-time-input" class="form-control valid text-white" v-model="startLesson"
+              @input="$emit('update_time_start', call.id, startLesson)">
             <div class="d-flex align-items-center">
               <svg viewBox="0 0 24 24" style="height: 30px; width: 30px;">
                 <path fill="currentColor"
@@ -68,17 +80,24 @@ export default {
                 </path>
               </svg>
             </div>
-            <input type="time" required id="end-time-input" class="form-control valid text-white" v-model="endLesson" @input="$emit('update_time_end', call.id, endLesson)">
+            <input type="time" required id="end-time-input" class="form-control valid text-white" v-model="endLesson"
+              @input="$emit('update_time_end', call.id, endLesson)">
           </div>
         </div>
 
         <br />
+        <svg viewBox="0 0 24 24" style="height: 20px; width: 20px;">
+          <path fill="currentColor"
+            d="M6 1H8V3H16V1H18V3H19C20.11 3 21 3.9 21 5V19C21 20.11 20.11 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.89 3.89 3 5 3H6V1M5 8V19H19V8H5M7 10H17V12H7V10Z">
+          </path>
+        </svg>
         <label for="time-input">Дни недели подачи аудио уведомления:</label>
         <div class="d-flex justify-content-between">
           <label>
             <div>
               <div class="checkbox-wrapper-13">
-                <input type="checkbox" id="Monday" value="1" v-model="daysOfTheWeek" @change="$emit('update_week_days', call.id, daysOfTheWeek)">
+                <input type="checkbox" id="Monday" value="1" v-model="daysOfTheWeek"
+                  @change="$emit('update_week_days', call.id, daysOfTheWeek)">
               </div>
             </div>
             Пн
@@ -87,7 +106,8 @@ export default {
           <label>
             <div>
               <div class="checkbox-wrapper-13">
-                <input type="checkbox" id="Tuesday" value="2" v-model="daysOfTheWeek" @change="$emit('update_week_days', call.id, daysOfTheWeek)">
+                <input type="checkbox" id="Tuesday" value="2" v-model="daysOfTheWeek"
+                  @change="$emit('update_week_days', call.id, daysOfTheWeek)">
               </div>
             </div>
             Вт
@@ -96,7 +116,8 @@ export default {
           <label>
             <div>
               <div class="checkbox-wrapper-13">
-                <input type="checkbox" id="Wednesday" value="3" v-model="daysOfTheWeek" @change="$emit('update_week_days', call.id, daysOfTheWeek)">
+                <input type="checkbox" id="Wednesday" value="3" v-model="daysOfTheWeek"
+                  @change="$emit('update_week_days', call.id, daysOfTheWeek)">
               </div>
             </div>
             Ср
@@ -105,7 +126,8 @@ export default {
           <label>
             <div>
               <div class="checkbox-wrapper-13">
-                <input type="checkbox" id="Thursday" value="4" v-model="daysOfTheWeek" @change="$emit('update_week_days', call.id, daysOfTheWeek)">
+                <input type="checkbox" id="Thursday" value="4" v-model="daysOfTheWeek"
+                  @change="$emit('update_week_days', call.id, daysOfTheWeek)">
               </div>
             </div>
             Чт
@@ -114,7 +136,8 @@ export default {
           <label>
             <div>
               <div class="checkbox-wrapper-13">
-                <input type="checkbox" id="Friday" value="5" v-model="daysOfTheWeek" @change="$emit('update_week_days', call.id, daysOfTheWeek)">
+                <input type="checkbox" id="Friday" value="5" v-model="daysOfTheWeek"
+                  @change="$emit('update_week_days', call.id, daysOfTheWeek)">
               </div>
             </div>
             Пт
@@ -123,7 +146,8 @@ export default {
           <label>
             <div>
               <div class="checkbox-wrapper-13">
-                <input type="checkbox" id="Saturday" value="6" v-model="daysOfTheWeek" @change="$emit('update_week_days', call.id, daysOfTheWeek)">
+                <input type="checkbox" id="Saturday" value="6" v-model="daysOfTheWeek"
+                  @change="$emit('update_week_days', call.id, daysOfTheWeek)">
               </div>
             </div>
             Сб
@@ -131,12 +155,14 @@ export default {
         </div>
 
       </div>
-      
+
       <div class="card-footer border-danger">
         <div class="d-flex justify-content-between align-items-center text-timely">
           <button type="button" class="btn text-timely" @click="$emit('deleteCall', call.id)">
             <svg viewBox="0 0 24 24" style="height: 30px; width: 30px;">
-              <path fill="currentColor" d="M20.12 14.46L18 16.59L15.88 14.46L14.46 15.88L16.59 18L14.46 20.12L15.88 21.54L18 19.41L20.12 21.54L21.54 20.12L19.41 18L21.54 15.88M12 2C10.9 2 10 2.9 10 4C10 4.1 10 4.19 10 4.29C7.12 5.14 5 7.82 5 11V17L3 19V20H12.35C12.12 19.36 12 18.68 12 18C12 14.69 14.69 12 18 12C18.34 12 18.67 12.03 19 12.09V11C19 7.82 16.88 5.14 14 4.29C14 4.19 14 4.1 14 4C14 2.9 13.11 2 12 2M10 21C10 22.11 10.9 23 12 23C12.66 23 13.28 22.67 13.65 22.13C13.33 21.79 13.05 21.41 12.81 21Z"></path>
+              <path fill="currentColor"
+                d="M20.12 14.46L18 16.59L15.88 14.46L14.46 15.88L16.59 18L14.46 20.12L15.88 21.54L18 19.41L20.12 21.54L21.54 20.12L19.41 18L21.54 15.88M12 2C10.9 2 10 2.9 10 4C10 4.1 10 4.19 10 4.29C7.12 5.14 5 7.82 5 11V17L3 19V20H12.35C12.12 19.36 12 18.68 12 18C12 14.69 14.69 12 18 12C18.34 12 18.67 12.03 19 12.09V11C19 7.82 16.88 5.14 14 4.29C14 4.19 14 4.1 14 4C14 2.9 13.11 2 12 2M10 21C10 22.11 10.9 23 12 23C12.66 23 13.28 22.67 13.65 22.13C13.33 21.79 13.05 21.41 12.81 21Z">
+              </path>
             </svg>
           </button>
 
@@ -157,13 +183,12 @@ export default {
 </template>
 
 <style scoped>
-
 .call {
   max-width: 450px;
 }
 
 input:invalid {
-    background-color: rgba(176, 0, 32, 0.3);
+  background-color: rgba(176, 0, 32, 0.3);
 }
 
 select:invalid {
@@ -370,5 +395,4 @@ input:checked~.slider {
 .checkbox-wrapper-13 *:before,
 .checkbox-wrapper-13 *:after {
   box-sizing: inherit;
-}
-</style>
+}</style>

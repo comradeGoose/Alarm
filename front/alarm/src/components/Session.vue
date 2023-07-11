@@ -6,14 +6,9 @@ export default {
 		return {
 			sessions: [
 				{
-					id: 'goose',
+					id: '1684300403756',
 					username: 'goose',
-					key: 'goose'
-				},
-				{
-					id: 'user',
-					username: 'user',
-					key: 'user'
+					key: 'pr4lXdlYrnLKoU4yPCab4qGQ3uchQr0c'
 				}
 			]
 		}

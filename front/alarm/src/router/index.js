@@ -11,62 +11,52 @@ import axios from 'axios'
 
 // localStorage.setItem('username', 'goose')
 // localStorage.setItem('password','goose')
-// localStorage.setItem('access_key', 'goose')
-// localStorage.setItem('admin', 'goose')
+// localStorage.setItem('access_key', '1q2w3e4r5t6y7u8i')
+// localStorage.setItem('admin', '0')
 // localStorage.clear()
 
-const access_key = localStorage.getItem('access_key')
-const admin = localStorage.getItem('admin')
+// const access_key = localStorage.getItem('access_key')
+// const admin = localStorage.getItem('admin')
 
-const auth = function (to, from, next) {
-  if (access_key) next({ name: 'calls' })
-  else next()
-}
+// ----------------------------------------
+// localStorage.setItem('username', 'goose')
+// localStorage.setItem('access_key', '1q2w3e4r5t6y7u8i')
+// localStorage.clear()
 
-const checkToken = function (to, from, next) {
-  if (access_key) {
-    axios.post('/access_key', {
-      access_key: access_key
+const check_key = function (to, from, next) {
+  axios.post('/access_key', {
+    access_key: localStorage.getItem('access_key')
+  })
+    .then((response) => {
+      console.log(response.data)
     })
-      .then((response) => {
-        // localStorage.setItem('token', String(response.data))
-        // this.user = response.data
-        console.log(response.data)
-        // if (!localToken) next({ name: 'auth' })
-        // else next()
-      })
-      .catch(function (error) {
-        console.log(error)
-        // next({ name: 'auth' })
-      })
-    if (!access_key) next({ name: 'sign-in' })
-    else next()
+    .catch(function (error) {
+      console.log(error)
+    })
+  const access_key = localStorage.getItem('access_key')
+  if (access_key) {
+    next()
   } else {
     next({ name: 'sign-in' })
   }
 }
 
-const checkTokenAdmin = function (to, from, next) {
-  if (access_key) {
-    axios.post('/access_key', {
-      access_key: access_key
+const check_key_sign_in = function (to, from, next) {
+  axios.post('/access_key', {
+    access_key: localStorage.getItem('access_key')
+  })
+    .then((response) => {
+      console.log(response.data)
     })
-      .then((response) => {
-        // localStorage.setItem('token', String(response.data))
-        // this.user = response.data
-        console.log(response.data)
-        // if (!localToken) next({ name: 'auth' })
-        // else next()
-      })
-      .catch(function (error) {
-        console.log(error)
-        // next({ name: 'auth' })
-      })
-    if (!access_key && !admin) next({ name: 'sign-in' })
-    else next()
-  } else {
-    next({ name: 'sign-in' })
-  }
+    .catch(function (error) {
+      console.log(error)
+    })
+    const access_key = localStorage.getItem('access_key')
+    if (access_key) {
+      next({ name: 'calls' })
+    } else {
+      next()
+    }
 }
 
 const call = function (to, from, next) {
@@ -86,31 +76,31 @@ const router = createRouter({
       path: '/sign-in',
       name: 'sign-in',
       component: SignInView,
-      beforeEnter: auth
+      beforeEnter: check_key_sign_in
     },
     {
       path: '/calls',
       name: 'calls',
       component: CallListView,
-      beforeEnter: checkToken
+      beforeEnter: check_key
     },
     {
       path: '/setting',
       name: 'setting',
       component: SettingView,
-      beforeEnter: checkToken
+      beforeEnter: check_key
     },
     {
       path: '/about',
       name: 'about',
       component: AboutView,
-      beforeEnter: checkToken
+      beforeEnter: check_key
     },
     {
       path: '/admin',
       name: 'admin',
       component: AdminView,
-      beforeEnter: checkTokenAdmin
+      beforeEnter: check_key
     }
   ]
 })

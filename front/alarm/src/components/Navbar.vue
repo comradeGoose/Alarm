@@ -18,7 +18,6 @@ export default {
 				!this.new_password_2) {
 				return
 			}
-
 			if (
 				this.previous_password.length >= 5 &&
 				this.new_password_1.length >= 5 &&
@@ -28,21 +27,20 @@ export default {
 			} else {
 				console.log('error')
 			}
-
 		},
 		log_out: function () {
-			axios.post('/log_out', {
+			axios.post('/log-out', {
 				access_key: localStorage.getItem('access_key')
 			})
 				.then((response) => {
 					console.log(response)
 					localStorage.removeItem('access_key')
-					window.location.reload()
+					window.location.replace('/')
 				})
 				.catch(function (error) {
 					console.log(error)
 					localStorage.removeItem('access_key')
-					window.location.reload()
+					window.location.replace('/')
 				})
 		}
 	}
@@ -51,13 +49,10 @@ export default {
 
 <template>
 	<nav class="my-nav fixed-top navbar bg-nav shadow">
-		<!-- <RouterLink to="/"><img src="@/assets/logo.svg" alt="Logo" width="45" height="45"
-				class="d-inline-block align-text-top">
-		</RouterLink> -->
 
 		<button class="btn text-timely" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
 			aria-controls="offcanvasExample">
-			<img src="@/assets/logo.svg" alt="" width="45" height="45">
+			<img src="../../src/assets/logo.png" alt="" width="45" height="45">
 		</button>
 
 		<div class="offcanvas offcanvas-start nav-sidebars" tabindex="-1" id="offcanvasExample"
@@ -97,10 +92,10 @@ export default {
 									<label for="exampleInputPassword1" class="form-label">Повторите новый пароль</label>
 									<input type="password" class="form-control" id="exampleInputPassword1" v-model="new_password_2">
 								</div>
-								<div class="mb-3 form-check">
+								<!-- <div class="mb-3 form-check">
 									<input type="checkbox" class="form-check-input" id="exampleCheck1">
 									<label class="form-check-label" for="exampleCheck1">Check me out</label>
-								</div>
+								</div> -->
 							</form>
 							<button class="btn btn-primary" @click="edit_password()">Подтвердить</button>
 						</div>
@@ -120,9 +115,9 @@ export default {
 			<br>
 		</div>
 		<ul class="nav">
-			<li class="nav-item">
+			<!-- <li class="nav-item">
 				<RouterLink v-if="admin" to="/admin">Журнал</RouterLink>
-			</li>
+			</li> -->
 			<li class="nav-item">
 				<RouterLink to="/calls">Звонки</RouterLink>
 			</li>

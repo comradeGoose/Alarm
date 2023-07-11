@@ -19,9 +19,9 @@ export default {
 			events: [],
 			selectedEvents: [
 				{
-					username: '-',
-					event: '-',
-					time: '-'
+					username: 'goose',
+					event: 'грокость 40',
+					time: '14:30'
 				}
 			]
 		}

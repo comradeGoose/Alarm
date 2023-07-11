@@ -1,8 +1,6 @@
 <script>
 import Navbar from './components/Navbar.vue'
-import axios from 'axios'
 export default {
-  name: 'SignIn',
   components: {
     Navbar
   },
@@ -20,13 +18,11 @@ export default {
 
   <header>
     <Navbar v-if="access_key"/>
+    <!-- <Navbar/> -->
   </header>
-
+  
   <main class="h-100 w-100">
     <RouterView />
   </main>
 
 </template>
-
-<style scoped>
-</style>

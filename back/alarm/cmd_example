@@ -7,5 +7,8 @@ esptool.py write_flash -z 0x220000 sound.iso
 # create iso
 python ~/esp/esp-adf/esp-idf/components/spiffs/spiffsgen.py 0x100000 sound sound.iso
 
+# monitor
+idf.py -p COM7 monitor
+
 # EMBED_TXTFILES telegram_certificate.pem
 # COMPONENT_EMBED_TXTFILES := telegram_certificate.pem

@@ -30,6 +30,20 @@ export default {
 			})
 	},
 	methods: {
+		post_erase_wifi: function () {
+			axios.post('/erase_wifi', {
+				access_key: localStorage.getItem('access_key')
+			})
+				.then((response) => {
+					console.log(response)
+					window.location.replace('/')
+				})
+				.catch(function (error) {
+					console.log(error)
+					localStorage.removeItem('access_key')
+					window.location.replace('/')
+				})	
+		},
 		post_volume_music: function () {
 			axios.post('/set_volume', {
 				volume: this.volume,
@@ -40,8 +54,8 @@ export default {
 				})
 				.catch(function (error) {
 					console.log(error)
-					// localStorage.removeItem('access_key')
-					// window.location.reload()
+					localStorage.removeItem('access_key')
+					window.location.replace('/')
 				})
 		},
 		submitFile() {
@@ -78,8 +92,7 @@ export default {
 						'Content-Type': 'multipart/form-data'
 					},
 					params: {
-						filename: this.filename,
-						access_key: localStorage.getItem('access_key')
+						filename: this.filename
 					}
 				})
 					.then((response) => {
@@ -129,6 +142,14 @@ export default {
 					<button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"
 						v-on:click="submitFile()">Upload</button> <!-- :disabled="active"-->
 				</div>
+			</div>
+		</div>
+
+		<div class="card">
+			<h3 class="card-header text-timely">Erase Wi-Fi</h3>
+			<div class="card-body text-center">
+					<button class="btn btn-timely" type="button" id="inputGroupFileAddon04"
+						@click="post_erase_wifi">Erase</button>
 			</div>
 		</div>
 	</div>

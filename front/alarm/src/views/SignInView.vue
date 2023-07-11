@@ -4,8 +4,8 @@ export default {
   name: 'SignIn',
   data () {
     return {
-      username: localStorage.getItem('username'),
-      password: localStorage.getItem('password'),
+      username: null,
+      password: null
 			// remember: false
       // isLoading: false
     }
@@ -22,15 +22,13 @@ export default {
           console.log(response)
           console.log(response.data)
 					localStorage.setItem('username', this.username)
-					localStorage.setItem('password', this.password)
           localStorage.setItem('access_key',response.data.access_key)
-          localStorage.setItem('admin',response.data.admin)
-          window.location.reload()
+          window.location.replace('/calls')
         })
         .catch(function (error) {
           console.log(error)
           localStorage.clear()
-          window.location.reload()
+          window.location.replace('/')
         })
 		}
   }
@@ -42,7 +40,7 @@ export default {
 		<div class="form-signin w-100 m-auto">
 	<form>
 		<img class="mb-4" src="../assets/logo.svg" alt="" width="72" height="72">
-		<h1 class="h3 mb-3 fw-normal">Авторизуйтесь</h1>
+		<h1 class="h3 mb-3 fw-normal">Войдите в систему</h1>
 
 		<div class="form-floating">
 			<input type="text" class="form-control" id="floatingInput" placeholder="Username" v-model="username">
@@ -55,11 +53,11 @@ export default {
 
 		<div class="checkbox mb-3">
 			<label>
-				<input type="checkbox" value="remember-me"> Remember me
+				<input type="checkbox" value="remember-me" :disabled="true"> Remember me
 			</label>
 		</div>
 	</form>
-  <button class="w-100 btn btn-lg btn-timely" @click="auth()">Авторизоваться</button>
+  <button class="w-100 btn btn-lg btn-timely" @click="auth()">Войти</button>
 	<p class="mt-5 mb-3 text-body-secondary">&copy; 2022-2023</p>
 </div>
 </div>
